@@ -6,6 +6,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -56,6 +57,25 @@ const testimonials = [
 
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  
+  // Update the active index when the carousel changes
+  React.useEffect(() => {
+    if (!carouselApi) return;
+
+    const handleSelect = () => {
+      setActiveIndex(carouselApi.selectedScrollSnap());
+    };
+
+    carouselApi.on("select", handleSelect);
+    
+    // Initial call to set the index on mount
+    handleSelect();
+
+    return () => {
+      carouselApi.off("select", handleSelect);
+    };
+  }, [carouselApi]);
   
   return (
     <section className="py-16 bg-white">
@@ -74,15 +94,10 @@ const Testimonials = () => {
             align: "start",
             loop: true,
           }}
-          onSelect={(api) => {
-            if (api) {
-              const currentIndex = api.selectedScrollSnap();
-              setActiveIndex(currentIndex);
-            }
-          }}
+          setApi={setCarouselApi}
         >
           <CarouselContent>
-            {testimonials.map((testimonial, index) => (
+            {testimonials.map((testimonial) => (
               <CarouselItem key={testimonial.id}>
                 <Card className="border-0 shadow-none">
                   <CardContent className="p-6 text-center">
@@ -115,7 +130,9 @@ const Testimonials = () => {
                 className={`h-2.5 rounded-full transition-all ${
                   activeIndex === index ? "w-8 bg-farm-600" : "w-2.5 bg-farm-200"
                 }`}
-                onClick={() => setActiveIndex(index)}
+                onClick={() => {
+                  carouselApi?.scrollTo(index);
+                }}
                 aria-label={`Go to testimonial ${index + 1}`}
               />
             ))}
