@@ -17,7 +17,7 @@ const testimonials = [
     name: "James Wilson",
     role: "Organic Farmer",
     image: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?q=80&w=100&auto=format&fit=crop",
-    quote: "FarmConnect transformed my business. I'm earning 30% more by selling directly to buyers without the traditional middlemen taking most of my profits.",
+    quote: "KRUSHI transformed my business. I'm earning 30% more by selling directly to buyers without the traditional middlemen taking most of my profits.",
     location: "Green Valley"
   },
   {
@@ -25,7 +25,7 @@ const testimonials = [
     name: "Sarah Johnson",
     role: "Restaurant Owner",
     image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=100&auto=format&fit=crop",
-    quote: "As a restaurant owner, I need consistent quality and freshness. FarmConnect connects me directly with local farms, ensuring my ingredients are always at their peak.",
+    quote: "As a restaurant owner, I need consistent quality and freshness. KRUSHI connects me directly with local farms, ensuring my ingredients are always at their peak.",
     location: "Riverside"
   },
   {
@@ -41,7 +41,7 @@ const testimonials = [
     name: "Elena Rodriguez",
     role: "Small-Scale Farmer",
     image: "https://images.unsplash.com/photo-1628260412297-a3377e45006f?q=80&w=100&auto=format&fit=crop",
-    quote: "Before FarmConnect, I struggled to find buyers for my specialty crops. Now I have a direct channel to customers who appreciate quality and are willing to pay for it.",
+    quote: "Before KRUSHI, I struggled to find buyers for my specialty crops. Now I have a direct channel to customers who appreciate quality and are willing to pay for it.",
     location: "Sunny Meadows"
   },
   {
@@ -70,10 +70,15 @@ const Testimonials = () => {
         
         <Carousel
           className="max-w-4xl mx-auto"
+          opts={{
+            align: "start",
+            loop: true,
+          }}
           onSelect={(api) => {
-            // Use the correct type handling here - the api gives us the current index
-            const currentIndex = api.selectedScrollSnap();
-            setActiveIndex(currentIndex);
+            if (api) {
+              const currentIndex = api.selectedScrollSnap();
+              setActiveIndex(currentIndex);
+            }
           }}
         >
           <CarouselContent>
