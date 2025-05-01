@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -74,56 +73,53 @@ const Account = () => {
               </CardHeader>
               <CardContent>
                 <nav className="space-y-1">
-                  <TabsList className="flex flex-col w-full h-auto gap-1">
-                    <TabsTrigger 
-                      value="profile" 
-                      onClick={() => setActiveTab("profile")}
-                      className={`w-full justify-start px-3 ${activeTab === "profile" ? "bg-primary text-primary-foreground" : ""}`}
-                    >
-                      <User className="mr-2 h-4 w-4" />
-                      Personal Information
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="addresses" 
-                      onClick={() => setActiveTab("addresses")}
-                      className={`w-full justify-start px-3 ${activeTab === "addresses" ? "bg-primary text-primary-foreground" : ""}`}
-                    >
-                      <MapPin className="mr-2 h-4 w-4" />
-                      Addresses
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="farms" 
-                      onClick={() => setActiveTab("farms")}
-                      className={`w-full justify-start px-3 ${activeTab === "farms" ? "bg-primary text-primary-foreground" : ""}`}
-                    >
-                      <Tractor className="mr-2 h-4 w-4" />
-                      Farm Details
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="banking" 
-                      onClick={() => setActiveTab("banking")}
-                      className={`w-full justify-start px-3 ${activeTab === "banking" ? "bg-primary text-primary-foreground" : ""}`}
-                    >
-                      <CreditCard className="mr-2 h-4 w-4" />
-                      Banking Details
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="documents" 
-                      onClick={() => setActiveTab("documents")}
-                      className={`w-full justify-start px-3 ${activeTab === "documents" ? "bg-primary text-primary-foreground" : ""}`}
-                    >
-                      <FileText className="mr-2 h-4 w-4" />
-                      Documents
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="settings" 
-                      onClick={() => setActiveTab("settings")}
-                      className={`w-full justify-start px-3 ${activeTab === "settings" ? "bg-primary text-primary-foreground" : ""}`}
-                    >
-                      <Settings className="mr-2 h-4 w-4" />
-                      Settings
-                    </TabsTrigger>
-                  </TabsList>
+                  {/* Wrap TabsList within a Tabs component */}
+                  <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                    <TabsList className="flex flex-col w-full h-auto gap-1">
+                      <TabsTrigger 
+                        value="profile" 
+                        className={`w-full justify-start px-3 ${activeTab === "profile" ? "bg-primary text-primary-foreground" : ""}`}
+                      >
+                        <User className="mr-2 h-4 w-4" />
+                        Personal Information
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="addresses" 
+                        className={`w-full justify-start px-3 ${activeTab === "addresses" ? "bg-primary text-primary-foreground" : ""}`}
+                      >
+                        <MapPin className="mr-2 h-4 w-4" />
+                        Addresses
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="farms" 
+                        className={`w-full justify-start px-3 ${activeTab === "farms" ? "bg-primary text-primary-foreground" : ""}`}
+                      >
+                        <Tractor className="mr-2 h-4 w-4" />
+                        Farm Details
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="banking" 
+                        className={`w-full justify-start px-3 ${activeTab === "banking" ? "bg-primary text-primary-foreground" : ""}`}
+                      >
+                        <CreditCard className="mr-2 h-4 w-4" />
+                        Banking Details
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="documents" 
+                        className={`w-full justify-start px-3 ${activeTab === "documents" ? "bg-primary text-primary-foreground" : ""}`}
+                      >
+                        <FileText className="mr-2 h-4 w-4" />
+                        Documents
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="settings" 
+                        className={`w-full justify-start px-3 ${activeTab === "settings" ? "bg-primary text-primary-foreground" : ""}`}
+                      >
+                        <Settings className="mr-2 h-4 w-4" />
+                        Settings
+                      </TabsTrigger>
+                    </TabsList>
+                  </Tabs>
                 </nav>
               </CardContent>
             </Card>
