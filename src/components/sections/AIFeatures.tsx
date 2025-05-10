@@ -1,5 +1,5 @@
 
-import { Truck, Brain, LineChart, ImagePlus, CloudRain, CircleCheck } from "lucide-react";
+import { CircleCheck, Brain, LineChart, ImagePlus, CloudRain, TruckDelivery } from "lucide-react";
 
 const AIFeatures = () => {
   const features = [
@@ -24,7 +24,7 @@ const AIFeatures = () => {
       description: "Receive personalized alerts about weather conditions and crop disease risks for your region."
     },
     {
-      icon: <Truck className="h-10 w-10 text-primary" />,
+      icon: <TruckDelivery className="h-10 w-10 text-primary" />,
       title: "Logistics Optimization",
       description: "Our AI finds the most efficient delivery routes and matches your produce with nearby buyers."
     },

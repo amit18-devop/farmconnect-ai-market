@@ -1,11 +1,12 @@
 
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -17,7 +18,7 @@ const testimonials = [
     name: "James Wilson",
     role: "Organic Farmer",
     image: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?q=80&w=100&auto=format&fit=crop",
-    quote: "FarmConnect transformed my business. I'm earning 30% more by selling directly to buyers without the traditional middlemen taking most of my profits.",
+    quote: "KRUSHI transformed my business. I'm earning 30% more by selling directly to buyers without the traditional middlemen taking most of my profits.",
     location: "Green Valley"
   },
   {
@@ -25,7 +26,7 @@ const testimonials = [
     name: "Sarah Johnson",
     role: "Restaurant Owner",
     image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=100&auto=format&fit=crop",
-    quote: "As a restaurant owner, I need consistent quality and freshness. FarmConnect connects me directly with local farms, ensuring my ingredients are always at their peak.",
+    quote: "As a restaurant owner, I need consistent quality and freshness. KRUSHI connects me directly with local farms, ensuring my ingredients are always at their peak.",
     location: "Riverside"
   },
   {
@@ -41,7 +42,7 @@ const testimonials = [
     name: "Elena Rodriguez",
     role: "Small-Scale Farmer",
     image: "https://images.unsplash.com/photo-1628260412297-a3377e45006f?q=80&w=100&auto=format&fit=crop",
-    quote: "Before FarmConnect, I struggled to find buyers for my specialty crops. Now I have a direct channel to customers who appreciate quality and are willing to pay for it.",
+    quote: "Before KRUSHI, I struggled to find buyers for my specialty crops. Now I have a direct channel to customers who appreciate quality and are willing to pay for it.",
     location: "Sunny Meadows"
   },
   {
@@ -56,6 +57,25 @@ const testimonials = [
 
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  
+  // Update the active index when the carousel changes
+  React.useEffect(() => {
+    if (!carouselApi) return;
+
+    const handleSelect = () => {
+      setActiveIndex(carouselApi.selectedScrollSnap());
+    };
+
+    carouselApi.on("select", handleSelect);
+    
+    // Initial call to set the index on mount
+    handleSelect();
+
+    return () => {
+      carouselApi.off("select", handleSelect);
+    };
+  }, [carouselApi]);
   
   return (
     <section className="py-16 bg-white">
@@ -71,17 +91,13 @@ const Testimonials = () => {
         <Carousel
           className="max-w-4xl mx-auto"
           opts={{
-            align: "center",
+            align: "start",
             loop: true,
           }}
-          onSelect={(api) => {
-            // Extract the index from the API object instead of using the event directly
-            const currentIndex = api.selectedScrollSnap();
-            setActiveIndex(currentIndex);
-          }}
+          setApi={setCarouselApi}
         >
           <CarouselContent>
-            {testimonials.map((testimonial, index) => (
+            {testimonials.map((testimonial) => (
               <CarouselItem key={testimonial.id}>
                 <Card className="border-0 shadow-none">
                   <CardContent className="p-6 text-center">
@@ -114,7 +130,9 @@ const Testimonials = () => {
                 className={`h-2.5 rounded-full transition-all ${
                   activeIndex === index ? "w-8 bg-farm-600" : "w-2.5 bg-farm-200"
                 }`}
-                onClick={() => setActiveIndex(index)}
+                onClick={() => {
+                  carouselApi?.scrollTo(index);
+                }}
                 aria-label={`Go to testimonial ${index + 1}`}
               />
             ))}
