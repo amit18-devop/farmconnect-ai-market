@@ -64,6 +64,7 @@ const Testimonials = () => {
     if (!carouselApi) return;
 
     const handleSelect = () => {
+      // Fix: Get the selected index from the API instead of the event
       setActiveIndex(carouselApi.selectedScrollSnap());
     };
 
