@@ -70,7 +70,15 @@ const Testimonials = () => {
         
         <Carousel
           className="max-w-4xl mx-auto"
-          onSelect={(index) => setActiveIndex(index)}
+          opts={{
+            align: "center",
+            loop: true,
+          }}
+          onSelect={(api) => {
+            // Extract the index from the API object instead of using the event directly
+            const currentIndex = api.selectedScrollSnap();
+            setActiveIndex(currentIndex);
+          }}
         >
           <CarouselContent>
             {testimonials.map((testimonial, index) => (
