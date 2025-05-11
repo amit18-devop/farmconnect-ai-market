@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -33,7 +32,7 @@ const Navbar = () => {
           
           <Link to="/" className="flex items-center gap-2">
             <Tractor size={24} className="text-farm-600" />
-            <span className="text-lg font-bold text-farm-800">FarmConnect</span>
+            <span className="text-lg font-bold text-farm-800">Krushi</span>
           </Link>
         </div>
         
